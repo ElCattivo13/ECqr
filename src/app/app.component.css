@@ -1,0 +1,53 @@
+
+.w100 {
+  width: 100%
+}
+
+.w90 {
+  width: 90%
+}
+
+.h100 {
+  height: 100%
+}
+
+.hcenter {
+  display: flex;
+  justify-content: center;
+}
+
+.mt5 {
+  margin-top: 40%;
+}
+
+.mb0 {
+  margin-bottom: 10px;
+}
+
+.mb1 {
+  margin-bottom: 20px;
+}
+
+.wrap {
+  overflow-wrap: break-word;
+  overflow-y: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexgrow {
+  flex-grow: 1;
+}
+
+.pos-x-button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+}
+
+.pos-rel {
+  position: relative;
+}

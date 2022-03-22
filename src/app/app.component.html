@@ -1,0 +1,38 @@
+<div class="w100 h100" [style.display]="qrscanner.isStart ? undefined : 'none'">
+  <ngx-scanner-qrcode
+    #qrscanner="scanner"
+    [line]="3"
+    [color]="'#c4504c'"
+    (data)="readScannerData($event)"
+    (error)="scannerError($event)"
+  ></ngx-scanner-qrcode>
+</div>
+
+<div *ngIf="!qrscanner.isStart" class="w100 hcenter mt5">
+  <mat-spinner></mat-spinner>
+</div>
+
+<ng-template #outputDialog let-data>
+  <div class="container h100 pos-rel">
+    <h2 mat-dialog-title>Decoded data</h2>
+    <p class="flexgrow wrap mb1">{{data.output}}</p>
+    <div align="center">
+      <button
+        class="mb0 w90"
+        mat-raised-button
+        color="primary"
+        (click)=copyToClipboard(data.output)
+      >Copy to clipboard
+      </button>
+      <button
+        class="mb0 w90"
+        mat-raised-button
+        color="primary"
+        (click)=openInTab(data.output)
+        [disabled]="!data.isUrl"
+      >Open in browser
+      </button>
+    </div>
+    <button class="pos-x-button" mat-stroked-button mat-dialog-close>X</button>
+  </div>
+</ng-template>
