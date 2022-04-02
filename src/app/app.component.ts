@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +23,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private output: Subject<string> = new Subject();;
   public output$: Observable<string> = this.output.asObservable();
-  //public count: number = 0;
+  public dialogTitle$!: Observable<string>;
 
   constructor(
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private translate: TranslateService
   ){
+    this.translate.addLangs(['de','en']);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
+
     this.output$.pipe(takeUntil(this.destroyed$)).subscribe((output: string) => {
       this.qrscanner.toggleCamera();
       const dialogRef = this.dialog.open(this.outputDialog, 
@@ -53,6 +59,8 @@ export class AppComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.qrscanner.toggleCamera();
     }, 100);
+
+    this.dialogTitle$ = this.translate.get('DIALOG.TITLE');
   }
 
   ngOnDestroy() {

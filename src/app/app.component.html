@@ -11,10 +11,14 @@
 <div *ngIf="!qrscanner.isStart" class="w100 hcenter mt5">
   <mat-spinner></mat-spinner>
 </div>
-
+<div>
+  <p>TEST</p>
+  <p>{{ 'AAA' | translate }}</p>
+  <p>TEST2</p>
+</div>
 <ng-template #outputDialog let-data>
   <div class="container h100 pos-rel">
-    <h2 mat-dialog-title>Decoded data</h2>
+	  <h2 mat-dialog-title>{{ 'DIALOG.TITLE' | translate }}</h2>
     <p class="flexgrow wrap mb1">{{data.output}}</p>
     <div align="center">
       <button
@@ -23,7 +27,7 @@
         color="primary"
         (click)=copyToClipboard(data.output)
       ><mat-icon>content_copy</mat-icon>
-        Copy to clipboard
+	{{ 'DIALOG.COPY' | translate }}
       </button>
       <button
         class="mb0 w90"
@@ -32,7 +36,7 @@
         (click)=openInTab(data.output)
         [disabled]="!data.isUrl"
       ><mat-icon>open_in_browser</mat-icon>
-        Open in browser
+	{{ 'DIALOG.OPEN_TAB' | translate }}
       </button>
     </div>
     <button class="pos-x-button" mat-stroked-button mat-dialog-close>

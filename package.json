@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@angular/service-worker": "^13.2.6",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "ngx-scanner-qrcode": "^1.0.17",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
