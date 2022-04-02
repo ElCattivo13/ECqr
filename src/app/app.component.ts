@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent implements OnInit, OnDestroy {
   
   private static readonly urlPattern: RegExp = new RegExp('(https?:\/\/)?([\da-z]+)\.([a-z.]{2,6})[\/\w .-]*\/?');
+  private readonly knownLanguages: string[] = ['de', 'en'];
 
   @ViewChild('qrscanner') qrscanner!: NgxScannerQrcodeComponent;
   @ViewChild('outputDialog') outputDialog!: TemplateRef<any>;
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private output: Subject<string> = new Subject();;
   public output$: Observable<string> = this.output.asObservable();
-  public dialogTitle$!: Observable<string>;
+  public lang?: string;
 
   constructor(
     public dialog: MatDialog,
@@ -31,9 +32,15 @@ export class AppComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private translate: TranslateService
   ){
-    this.translate.addLangs(['de','en']);
+    this.translate.addLangs(this.knownLanguages);
     this.translate.setDefaultLang('en');
-    this.translate.use('en');
+    const browserLang = this.translate.getBrowserLang();
+    if (browserLang && this.knownLanguages.includes(browserLang)) {
+      this.translate.use(browserLang);
+    } else {
+      this.translate.use('en');
+    }
+    this.lang = navigator.language;
 
     this.output$.pipe(takeUntil(this.destroyed$)).subscribe((output: string) => {
       this.qrscanner.toggleCamera();
@@ -49,7 +56,6 @@ export class AppComponent implements OnInit, OnDestroy {
       });
       dialogRef.afterClosed().subscribe((result: string) => {
         this.qrscanner.toggleCamera();
-	this.clipboard.copy(result);
       });
     });
 
@@ -59,8 +65,6 @@ export class AppComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.qrscanner.toggleCamera();
     }, 100);
-
-    this.dialogTitle$ = this.translate.get('DIALOG.TITLE');
   }
 
   ngOnDestroy() {

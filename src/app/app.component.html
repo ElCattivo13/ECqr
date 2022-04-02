@@ -12,10 +12,9 @@
   <mat-spinner></mat-spinner>
 </div>
 <div>
-  <p>TEST</p>
-  <p>{{ 'AAA' | translate }}</p>
-  <p>TEST2</p>
+  <p>Language: {{ lang }}</p>
 </div>
+
 <ng-template #outputDialog let-data>
   <div class="container h100 pos-rel">
 	  <h2 mat-dialog-title>{{ 'DIALOG.TITLE' | translate }}</h2>
