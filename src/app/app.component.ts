@@ -75,7 +75,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public scannerError(error: any):void {
-    console.error("Error thrown in the qr scanner component:", error);
+    if (error == 'No camera detected!') {
+      console.error("Open this website on a device with a camera!");
+      return;
+    } else {
+      console.error("Error thrown in the qr scanner component:", error);
+    }
   }
 
   public toggleCamera():void {
