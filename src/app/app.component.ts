@@ -14,9 +14,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AppComponent implements OnInit, OnDestroy {
   
   private static readonly urlPattern: RegExp = new RegExp('(https?:\/\/)?([\da-z]+)\.([a-z.]{2,6})[\/\w .-]*\/?');
-  public readonly CLOSE = "close";
-  public readonly COPY = "copy";
-  public readonly OPEN_TAB = "openTab";
 
   @ViewChild('qrscanner') qrscanner!: NgxScannerQrcodeComponent;
   @ViewChild('outputDialog') outputDialog!: TemplateRef<any>;
@@ -47,17 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
       dialogRef.afterClosed().subscribe((result: string) => {
         this.qrscanner.toggleCamera();
 	this.clipboard.copy(result);
-        if(result == this.CLOSE) {
-          // don't do anything else
-	} else if (result == this.COPY) {
-          if(this.clipboard.copy(output)) {
-            // copy successful
-	  } else {
-            // error during copy
-	  }
-	} else if (result == this.OPEN_TAB) {
-          window.open(output, "_blank");
-	}
       });
     });
 
