@@ -22,7 +22,8 @@
         mat-raised-button
         color="primary"
         (click)=copyToClipboard(data.output)
-      >Copy to clipboard
+      ><mat-icon>content_copy</mat-icon>
+        Copy to clipboard
       </button>
       <button
         class="mb0 w90"
@@ -30,9 +31,12 @@
         color="primary"
         (click)=openInTab(data.output)
         [disabled]="!data.isUrl"
-      >Open in browser
+      ><mat-icon>open_in_browser</mat-icon>
+        Open in browser
       </button>
     </div>
-    <button class="pos-x-button" mat-stroked-button mat-dialog-close>X</button>
+    <button class="pos-x-button" mat-stroked-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </ng-template>
